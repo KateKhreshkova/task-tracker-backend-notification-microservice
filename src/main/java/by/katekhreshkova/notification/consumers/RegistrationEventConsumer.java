@@ -13,8 +13,8 @@ public class RegistrationEventConsumer {
 
     private final EmailNotificationService notificationService;
 
-    @KafkaListener(topics = "user-registered", groupId = "notification-service")
+    @KafkaListener(topics = "user-registered-events-topic", groupId = "notification-service")
     public void consume(UserRegisteredEvent event) throws MessagingException {
-        notificationService.sendVerificationEmail(event.email(), event.token());
+        notificationService.sendRegistrationEmail(event.email());
     }
 }

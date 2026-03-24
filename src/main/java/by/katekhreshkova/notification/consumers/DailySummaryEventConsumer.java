@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class DailySummaryEventConsumer {
     private final EmailNotificationService notificationService;
 
-    @KafkaListener(topics = "tasks-daily-summary", groupId = "notification-service")
+    @KafkaListener(topics = "tasks-daily-summary-events-topic", groupId = "notification-service")
     public void consume(TaskDailySummaryEvent event) throws MessagingException {
         notificationService.sendDailySummary(event);
     }
