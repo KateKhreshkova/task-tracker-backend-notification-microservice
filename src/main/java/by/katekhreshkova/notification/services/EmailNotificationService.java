@@ -1,11 +1,9 @@
 package by.katekhreshkova.notification.services;
 
-import by.katekhreshkova.notification.common.EmailTask;
 import by.katekhreshkova.notification.events.TaskDailySummaryEvent;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -14,11 +12,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class EmailNotificationService {
     private final JavaMailSender mailSender;
+    private final static String FROM = "ii5myca93@mozmail.com";
 
     public void sendRegistrationEmail(String email) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
-
+        helper.setFrom(FROM);
         helper.setTo(email);
         helper.setSubject("Welcome to TaskFlow!");
         helper.setText("<h1> Hi!\n" +
@@ -34,7 +33,7 @@ public class EmailNotificationService {
 
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-
+        helper.setFrom(FROM);
         helper.setTo(event.email());
         helper.setSubject("Your Daily Task Summary");
 
